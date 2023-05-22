@@ -1,0 +1,396 @@
+body {
+    font-family: "Raleway", sans-serif;
+}
+
+/* =============================================== PRELOADER STARTS ======================================================= */
+*,
+:root {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    --radius: 20vmin;
+    --span-dist: 20vmin;
+
+    --white: #fff;
+    --black: #000;
+    --background: #b45309;
+    --dark-pri: #382314;
+}
+*::after,
+*::before {
+    position: absolute;
+    display: flex;
+}
+.mypreloader {
+    height: 100vh;
+    width: 100vw;
+    background: var(--background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: hidden;
+}
+
+span.preloaderspan {
+    margin: 0;
+    padding: 0;
+    display: block;
+    position: absolute;
+    width: var(--span-dist);
+    height: var(--span-dist);
+}
+span.preloaderspan:nth-child(1) {
+    transform: translate(-25vmin, 0px);
+    animation: spin 2.5s ease forwards infinite;
+}
+span.preloaderspan:nth-child(2) {
+    transform: translate(25vmin, 0px);
+    animation: anti-spin 2.5s ease forwards infinite;
+}
+i.myi {
+    display: block;
+    position: absolute;
+    width: var(--radius);
+    height: var(--radius);
+    border-radius: 50%;
+}
+.left {
+    transform: translate(10vmin, 0px);
+    background: var(--dark-pri);
+}
+.right {
+    transform: translate(-10vmin, 0px);
+    border: 4px solid var(--white);
+}
+/* animations */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes anti-spin {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* ============================================== PRELOADER ENDS ==================================================== */
+
+/* ========================================= TEACHER SHOWCASE STARTS ================================================ */
+
+.bordertym {
+    height: 369px;
+    width: 290px;
+    background: transparent;
+    border-radius: 10px;
+    transition: border 1s;
+    position: relative;
+}
+.bordertym:hover {
+    border: 1px solid #fff;
+}
+.cardtym {
+    height: 379px;
+    width: 300px;
+    background: #808080;
+    border-radius: 10px;
+    transition: background 0.8s;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 70px 63px -60px #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.card0 {
+    background: url("https://i.pinimg.com/736x/8f/a0/51/8fa051251f5ac2d0b756027089fbffde--terry-o-neill-al-pacino.jpg")
+        center center no-repeat;
+    background-size: 300px;
+}
+.card0:hover {
+    background: url("https://i.pinimg.com/736x/8f/a0/51/8fa051251f5ac2d0b756027089fbffde--terry-o-neill-al-pacino.jpg")
+        left center no-repeat;
+    background-size: 600px;
+}
+.card0:hover h2 {
+    opacity: 1;
+}
+.card0:hover .fa {
+    opacity: 1;
+}
+.card1 {
+    background: url("https://i.pinimg.com/originals/28/d2/e6/28d2e684e7859a0dd17fbd0cea00f8a9.jpg")
+        center center no-repeat;
+    background-size: 300px;
+}
+.card1:hover {
+    background: url("https://i.pinimg.com/originals/28/d2/e6/28d2e684e7859a0dd17fbd0cea00f8a9.jpg")
+        left center no-repeat;
+    background-size: 600px;
+}
+.card1:hover h2 {
+    opacity: 1;
+}
+.card1:hover .fa {
+    opacity: 1;
+}
+.card2 {
+    background: url("https://i.pinimg.com/originals/ee/85/08/ee850842e68cfcf6e3943c048f45c6d1.jpg")
+        center center no-repeat;
+    background-size: 300px;
+}
+.card2:hover {
+    background: url("https://i.pinimg.com/originals/ee/85/08/ee850842e68cfcf6e3943c048f45c6d1.jpg")
+        left center no-repeat;
+    background-size: 600px;
+}
+.card2:hover h2 {
+    opacity: 1;
+}
+.card2:hover .fa {
+    opacity: 1;
+}
+h2 {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #fff;
+    margin: 20px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+.fa {
+    opacity: 0;
+    transition: opacity 1s;
+}
+.iconstym {
+    position: absolute;
+    fill: #fff;
+    color: #fff;
+    height: 130px;
+    top: 226px;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* =============================================== BUTTON STARTS ======================================================= */
+/* From uiverse.io */
+button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+    border-radius: 1.625rem;
+}
+
+button.learn-more {
+    width: 12rem;
+    height: auto;
+}
+
+button.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: relative;
+    display: block;
+    margin: 0;
+    width: 3rem;
+    height: 3rem;
+    background: #ede7e2;
+    border-radius: 1.625rem;
+}
+
+button.learn-more .circle .icon {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #fff;
+}
+
+button.learn-more .circle .icon.arrow {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    left: 0.625rem;
+    width: 1.125rem;
+    height: 0.125rem;
+    background: none;
+}
+
+button.learn-more .circle .icon.arrow::before {
+    position: absolute;
+    content: "";
+    top: -0.29rem;
+    right: 0.0625rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-top: 0.125rem solid black;
+    border-right: 0.125rem solid black;
+    transform: rotate(45deg);
+}
+
+button.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #ede7e2;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+button:hover .circle {
+    width: 100%;
+    color: black;
+}
+
+button:hover .circle .icon.arrow {
+    background: black;
+    /* color: black; */
+    transform: translate(1rem, 0);
+}
+
+button:hover .button-text {
+    color: black;
+}
+
+.apps{
+    background: linear-gradient(
+        82.3deg,
+        #262626 10.8%,
+        #ede7e2 94.3%
+    );
+}
+
+/* ================================================================ BUTTON ENDS ======================================================================== */
+
+/* ====================================== BUTTON 2 STARTS ========================================================== */
+/* From uiverse.io by @Madflows */
+.button {
+    position: relative;
+    overflow: hidden;
+    /* height: 3rem;
+    padding: 0 4rem; */
+    border-radius: 1.5rem;
+    /* background: linear-gradient(82.3deg, #fcd34d 10.8%, #fcd34d 94.3%); */
+    background: linear-gradient(
+        82.3deg,
+        #262626 10.8%,
+        #ede7e2 94.3%
+    );
+    /* background-size: 400%; */
+    color: #fff;
+}
+
+.mybtn {
+    height: 3rem;
+    padding: 0 4rem;
+    /* color: black; */
+}
+
+.button:hover::before {
+    transform: scaleX(1);
+}
+
+.button-content {
+    position: relative;
+    z-index: 1;
+}
+
+.button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    width: 100%;
+    height: inherit;
+    border-radius: inherit;
+    background: linear-gradient(
+        82.3deg,
+        #262626 10.8%,
+        #ede7e2 94.3%
+    );
+    transition: all 0.475s;
+    color: white;
+}
+
+/* =========================================================== button 2 ends ================================================================================= */
+
+/* ================================================================ POPULAR COURSES NEUMORPHIC CARD STARTS ================================================== */
+/* neumorphic card */
+.mycard {
+    border-radius: 50px;
+    background: #44403c;
+    box-shadow: 10px 10px 20px #363330, -10px -10px 20px #524d48;
+}
+
+/* ================================================================ POPULAR COURSES NEUMORPHIC CARD ENDS ================================================== */
+
+.video-bg {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-bg video {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+.dark-light {
+    background-color: var(--dropdown-bg);
+    box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.2);
+    /* z-index: 3; */
+    cursor: pointer;
+}
+
+:root {
+    --theme-bg-color: rgba(16 18 27 / 40%);
+    --border-color: rgba(113 119 144 / 25%);
+    --theme-color: #f9fafb;
+    --inactive-color: rgb(113 119 144 / 78%);
+    --body-font: "Poppins", sans-serif;
+    --hover-menu-bg: rgba(12 15 25 / 30%);
+    --content-title-color: #999ba5;
+    --content-bg: rgb(146 151 179 / 13%);
+    --button-inactive: rgb(249 250 251 / 55%);
+    --dropdown-bg: #21242d;
+    --dropdown-hover: rgb(42 46 60);
+    --popup-bg: rgb(22 25 37);
+    --search-bg:  #14162b;
+    --overlay-bg: rgba(36, 39, 59, 0.3);
+    --scrollbar-bg: rgb(1 2 3 / 40%);
+   }
+
+.app {
+    background-color: var(--theme-bg-color);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+   }
