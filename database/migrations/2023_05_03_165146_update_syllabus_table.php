@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('syllabus', function (Blueprint $table) {
-            $table->integer('course_id')->unsigned();
+            // $table->integer('course_id')->unsigned();
         });
     }
 };

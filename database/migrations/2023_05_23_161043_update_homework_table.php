@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('homework', function (Blueprint $table) {
-            //
+            $table->dateTime('due_date')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('homework', function (Blueprint $table) {
-            // $table->integer('course_id')->unsigned();
+            $table->dateTime('due_date')->nullable();
         });
     }
 };

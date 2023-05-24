@@ -269,7 +269,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function teacherhomework()
+    public function teacherhomework(Homework $homework)
     {
 
         $teachers = User::Where('role', 1)->get();

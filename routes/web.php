@@ -87,10 +87,9 @@ Route::controller(CourseController::class)->group(function () {
 
     Route::get('/download/{id}', [CourseController::class, 'download'])->name('homework.download');
 
+    Route::put('/homeworks/{homework}', [CourseController::class, 'updateHomework'])->name('homework.update');
+    // Route::put('/homework/{homework}', 'CourseController@updateHomework')->name('homework.update');
 
-    // Route::post('/createsyllabus', function (Request $request) {
-    //     dd($request);
-    // });
 
 });
 
