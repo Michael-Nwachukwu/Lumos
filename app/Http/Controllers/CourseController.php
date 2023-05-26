@@ -125,10 +125,10 @@ class CourseController extends Controller
             $pdf = $request->file('pdf');
 
             // Generate a unique filename for the file
-            $filename = md5(uniqid()) . '.' . $pdf->getClientOriginalExtension();
+            $filename = $pdf->getClientOriginalName();
 
-            // Save the file to the storage disk
-            Storage::disk('local')->put($filename, file_get_contents($pdf));
+            // Save the file to the storage disk with original name
+            $pdf->storeAs('pdfs', $filename);
 
             // Set the PDF filename on the homework record
             $homework->pdf = $filename;
@@ -141,33 +141,6 @@ class CourseController extends Controller
         return redirect()->back()->with('message', 'Homework saved successfully!');
     }
 
-
-    // public function updateHomework(Request $request, Homework $homework)
-    // {
-    //     // Validate the form data
-    //     $formFields = $request->validate([
-    //         'course_id' => 'required',
-    //         'title' => 'required',
-    //         'pdf' => 'file|max:10240', // Max file size is 10 MB
-    //         'due_date' => 'required',
-    //     ]);
-
-    //     // Handle the uploaded PDF file, if provided
-    //     if ($request->hasFile('pdf')) {
-    //         $pdf = $request->file('pdf');
-    //         $pdfPath = $pdf->store('pdfs', 'local');
-    //         $formFields['pdf'] = $pdfPath;
-    //     }
-
-    //     // dd($formFields);
-
-    //     // Update the homework record in the database
-    //     $homework->update($formFields);
-
-    //     // Redirect back to the form with a success message
-    //     return redirect()->back()->with('message', 'Homework updated successfully!');
-    // }
-
     public function updateHomework(Request $request, Homework $homework)
     {
         // Validate the form data
@@ -175,37 +148,72 @@ class CourseController extends Controller
             'course_id' => 'required',
             'title' => 'required|string',
             'due_date' => 'required|date',
-            'pdf' => 'nullable|file|mimes:pdf|max:2048', // Adjust the validation rules as needed
+            'pdf' => 'nullable|file|mimes:pdf|max:2048',
         ]);
 
         // Handle the uploaded PDF file if provided
         if ($request->hasFile('pdf')) {
 
-            // Delete the old PDF file if it exists
+            /// Delete the PDF file if it exists
             if ($homework->pdf) {
-                Storage::delete($homework->pdf);
+                Storage::delete("/pdfs/$homework->pdf");
             }
 
-            $pdfFile = $request->file('pdf');
-            // Store the uploaded PDF file and update the PDF path in the database
-            $pdfPath = $pdfFile->store('pdfs');
-            // $homework->pdf = $pdfPath;
+            // Get the uploaded file
+            $pdf = $request->file('pdf');
 
-            $validatedData['pdf'] = $pdfPath;
+            // Generate a unique filename for the file
+            $filename = $pdf->getClientOriginalName();
+
+            // Save the file to the storage disk with original name
+            $pdf->storeAs('pdfs', $filename);
+
+            $validatedData['pdf'] = $filename;
+
         }
 
         // Update the homework with the validated data
         $homework->update($validatedData);
 
-        // dd($homework);
-
-        // // Save the changes to the homework record
-        // $homework->update();
-
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Homework updated successfully');
+        return redirect()->back()->with('success', 'Task updated successfully');
     }
 
+    public function updateSyllabus(Request $request, Syllabus $syllable) 
+    {
+        // Validate the form data
+        $validatedData = $request->validate([
+            'course_id' => 'required',
+            'topic' => 'required|string',
+        ]);
+
+        // Update the homework with the validated data
+        $syllable->update($validatedData);
+
+        // Redirect or return a response
+        return redirect()->back()->with('success', 'Scheme updated successfully');
+    }
+
+    public function destroySyllabus(Syllabus $syllable)
+    {
+        $syllable->delete();
+
+        return redirect()->back()->with('success', 'Scheme deleted successfully');
+    }
+
+    // delete a task/homework
+    public function destroyHomework(Homework $homework)
+    {
+
+        // Delete the PDF file if it exists
+        if ($homework->pdf) {
+            Storage::delete("/pdfs/$homework->pdf");
+        }
+
+        $homework->delete();
+
+        return redirect()->back()->with('success', 'Task deleted successfully');
+    }
 
     // download homework pdf
     public function download($id)
@@ -214,7 +222,7 @@ class CourseController extends Controller
         $homework = Homework::findOrFail($id);
 
         // Get the file contents from the storage disk
-        $fileContents = Storage::disk('local')->get($homework->pdf);
+        $fileContents = Storage::disk('local')->get("/pdfs/$homework->pdf");
 
         // Return the file as a download response
         $response = Response::make($fileContents);

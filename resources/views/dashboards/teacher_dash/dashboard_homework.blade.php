@@ -34,7 +34,7 @@
                     @if ($homeworks->isEmpty())
                         <div class="flex flex-col items-center justify-center">
                             <img src="{{ asset('img/undraw_warning_re_eoyh.svg') }}" class="w-60 " alt=""> <br>
-                            <p>There are no schemes available</p>
+                            <p>You have not created a task, click "create" to start</p>
                         </div>
                     @else
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -84,11 +84,16 @@
                                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                               </svg>
                                         </button>
-                                        <button >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" class="bi bi-trash-fill fill-red-800" viewBox="0 0 16 16">
-                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                              </svg>
-                                        </button>
+
+                                        <form method="POST" action="/homeworks/{{ $homework->id }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" class="bi bi-trash-fill fill-red-800" viewBox="0 0 16 16">
+                                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                                  </svg>
+                                            </button>
+                                        </form>
                                     </div>
 
                                 </td>
@@ -152,9 +157,8 @@
                             </label>
 
                             <textarea id="message" rows="5" name="title"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 placeholder:text-black"
-                                placeholder="Brief Homework Summary" value="{{ old('title') }}">
-                            </textarea>
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 placeholder:text-gray-600 placeholder:text-opacity-50"
+                                placeholder="Brief Homework Summary" value="{{ old('title') }}"></textarea>
                             @error('title')
                                 <p class="text-red-500">{{ $message }}</p>
                             @enderror
@@ -213,8 +217,6 @@
                         <img src="{{ asset('img/lumosBOW.jpg') }}" class="w-20" alt="">
                         <h3 class="mb-4 text-base pt-2 font-medium text-gray-900 dark:text-white">Edit Course Tasks</h3>
                     </div>
-
-
 
                     <form class="space-y-6" action="" method="POST" enctype="multipart/form-data" id="edit-form">
                         @csrf
@@ -289,6 +291,27 @@
   
     // Set the minimum value of the input field
     dueDateInput.min = currentDate;
+
+    // Get all edit buttons
+    var editButtons = $('.edit-button');
+
+    // Attach click event handler to each edit button
+    editButtons.on('click', function() {
+        
+        // Get the homework data from the data attribute
+        var homeworkData = JSON.parse($(this).attr('data-homework'));
+        var homeworkId = homeworkData.id;
+
+        // Set the form's action with the homework ID
+        $('#edit-form').attr('action', '/homeworks/' + homeworkId);
+
+        // Set the value of the textarea
+        $('#editmessage').val(homeworkData.title);
+
+        // Set the value of due date input
+        $('#editdue_date').val(homeworkData.due_date);
+
+    });
 
 </script>
   

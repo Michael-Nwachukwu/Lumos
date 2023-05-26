@@ -512,34 +512,4 @@
         chart.render();
     }
 
-   // Get all edit buttons
-var editButtons = $('.edit-button');
-
-// Attach click event handler to each edit button
-editButtons.on('click', function() {
-  // Get the homework data from the data attribute
-  var homeworkData = JSON.parse($(this).attr('data-homework'));
-  var homeworkId = homeworkData.id;
-
-  // Set the form's action with the homework ID
-  $('#edit-form').attr('action', '/homeworks/' + homeworkId);
-
-  // Set the value of the textarea
-  $('#editmessage').val(homeworkData.title);
-
-  // Set the value of due date input
-  $('#editdue_date').val(homeworkData.due_date);
-
-   // Set the value of the PDF input
-//    $('#editpdf').text(homeworkData.pdf);
-
-
-  console.log('click');
-
-  // Show the modal
-  $('#modal').show();
-});
-
-
-
 </script>

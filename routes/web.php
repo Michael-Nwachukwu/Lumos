@@ -81,14 +81,26 @@ Route::controller(CourseController::class)->group(function () {
     // store create course form data
     Route::post('/create', [CourseController::class, 'store']);
 
+    // Store create syllabus by teachers 
     Route::post('/createsyllabus', [CourseController::class, 'storeSyllabus']);
 
+    // Eit/update syllabus
+    Route::put('/syllabus/{syllable}', [CourseController::class, 'updateSyllabus'])->name('syllabus.update');
+
+    // delete syllabus
+    Route::delete('/syllabus/{syllable}', [CourseController::class, 'destroySyllabus'])->name('syllabus.destroy');
+
+    // Store create Homeworks by teachers
     Route::post('/createHomework', [CourseController::class, 'storeHomework']);
 
+    // download homework pdf instructions
     Route::get('/download/{id}', [CourseController::class, 'download'])->name('homework.download');
 
-    Route::put('/homeworks/{homework}', [CourseController::class, 'updateHomework'])->name('homework.update');
-    // Route::put('/homework/{homework}', 'CourseController@updateHomework')->name('homework.update');
+    // Eit/update homeworks
+    Route::put('/homeworks/{homework}', [CourseController::class, 'updateHomework'])->name('homework.update')->middleware('auth');
+
+    // delete tasks/homeworks
+    Route::delete('/homeworks/{homework}', [CourseController::class, 'destroyHomework'])->middleware('auth')->name('homeworks.destroy');
 
 
 });

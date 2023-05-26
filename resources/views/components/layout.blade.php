@@ -39,11 +39,11 @@
         src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js">
     </script>
 
-    <title>Document</title>
+    <title>Lumos</title>
 
 </head>
 
-<body {{ $attributes->merge(['class']) }}>
+<body {{ $attributes->merge(['class'  => "relative"]) }}>
 
     {{-- include preloader --}}
     {{-- @include('partials._preloader') --}}
@@ -217,12 +217,16 @@
     {{-- slot in web contents --}}
     {{ $slot }}
     
-    <x-flash class="z-50 top-0" />
+    <x-flash class="z-50 top-64 right-10 absolute" />
 
 </body>
 
 {{-- jquery cdn --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+
+ <!-- jQuery -->
+ <script src="{{ asset('js/jquery-3.0.0.min.js') }}"></script>
+ <script src="{{ asset('js/jquery-migrate-3.0.0.min.js') }}"></script>
 
 {{-- flowbite js --}}
 <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
@@ -296,16 +300,9 @@
 
     splide.mount();
 
-
-    // flash js 
-    $('document').ready(function() {
-        $('.flash-message').flashjs({
-            timeout: 5000
-        });
-    });
-
-    // AOS init
+    // AOS initialize
     AOS.init();
+
 </script>
 
 </html>

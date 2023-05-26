@@ -44,7 +44,7 @@ class UserController extends Controller
         auth()->login($user);
 
         // redirect
-        return redirect('/courses')->with('message', 'User created and logged in');
+        return redirect('/courses')->with('success', 'User created and logged in');
 
     }
 
@@ -78,7 +78,7 @@ class UserController extends Controller
         // Teacher::create($formFields);
 
         if ($user) {
-            return back()->with('message', 'User created and logged in');
+            return back()->with('success', 'Tutor created successfully');
         } else {
 
             // if not then
@@ -109,18 +109,18 @@ class UserController extends Controller
 
             if ($role == '0') {
                 // redirect
-                return redirect('/')->with('message', 'Student logged in Successfully');
+                return redirect('/')->with('success', 'Student logged in Successfully');
             }
 
             if ($role == '1') {
                 // Teacher::create($formFields);
                 // redirect
-                return redirect('/teacher-dashboard')->with('message', 'Teacher logged in Successfully');
+                return redirect('/teacher-dashboard')->with('success', 'Teacher logged in Successfully');
             }
 
             if ($role == '2') {
                 // redirect
-                return redirect('/admin-dashboard')->with('message', 'Admin logged in Successfully');
+                return redirect('/admin-dashboard')->with('success', 'Admin logged in Successfully');
             }
         }
 
@@ -138,7 +138,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('message', 'you have been logged out');
+        return redirect('/')->with('success', 'You have been logged out');
     }
 
     // 
