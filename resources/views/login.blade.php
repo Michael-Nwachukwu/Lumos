@@ -21,6 +21,10 @@
             /* min-height: 100vh; */
             line-height: 1.5;
         }
+
+        nav{
+            display:none !important;
+        }
     </style>
 
     <body class="bg-white">
@@ -33,10 +37,12 @@
 
                 <!-- Sidebar -->
                 <div
-                    class='hidden lg:flex flex-col justify-between bg-amber-300 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg mt-10'>
+                    class='hidden lg:flex flex-col justify-between bg-amber-300 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
                     <div class="flex items-center justify-end py-7">
-                        <img src="{{ asset('img/photo_2022-10-30_10-53-38-removebg-preview.png') }}" class="w-14"
+                        <a href="/">
+                            <img src="{{ asset('img/photo_2022-10-30_10-53-38-removebg-preview.png') }}" class="w-14"
                             alt="">
+                        </a>
                     </div>
                     <div class='space-y-5'>
                         <h1 class="lg:text-2xl xl:text-5xl xl:leading-snug font-extrabold" style="margin-top: -50px">

@@ -120,6 +120,8 @@ class DashboardController extends Controller
             
             'messages' => Studentinbox::get(),
 
+            'homeworks' => Homework::Where('course_id', $course->id)->get(),
+
         ]);
     }
 

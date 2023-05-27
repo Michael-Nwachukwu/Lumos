@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Enrolled;
 use App\Models\Homework;
 use App\Models\Syllabus;
 use Illuminate\Http\Request;
+use App\Mail\HomeworkNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 
@@ -119,6 +122,14 @@ class CourseController extends Controller
             'due_date' => $request->input('due_date')
         ]);
 
+        // Retrieve users with matching course_id
+        $users = User::where('course', $request->input('course_id'))->get();
+
+        // $course = Course::where('id', $request->input('course_id'))->get();
+
+        // Retrieve the course
+        $course = Course::findOrFail($request->input('course_id'));
+
         // Save the PDF file, if one was uploaded
         if ($request->hasFile('pdf')) {
             // Get the uploaded file
@@ -132,13 +143,76 @@ class CourseController extends Controller
 
             // Set the PDF filename on the homework record
             $homework->pdf = $filename;
+
+            // Retrieve the full file path
+            $pdfFilePath = storage_path('app/pdfs/' . $filename);
+
+            foreach ($users as $user) {
+
+                try {
+    
+                    Mail::to($user->email)->send(new HomeworkNotification($user, $course, $homework, $pdfFilePath));
+                    
+                } catch (Exception $e) {
+    
+                  //Email sent failed.
+                  return back()->with(['error' => $e->getMessage() ]);
+        
+                }
+    
+            }
+        }else {
+
+            // Send email to each user
+            foreach ($users as $user) {
+
+                try {
+
+                    Mail::to($user->email)->send(new HomeworkNotification($user, $course, $homework));
+                    
+                } catch (Exception $e) {
+
+                    //Email sent failed.
+                    return back()->with(['error' => $e->getMessage() ]);
+        
+                }
+
+            }
         }
 
         // Save the homework record to the database
         $homework->save();
 
+        // // Retrieve the full file path
+        // $pdfFilePath = storage_path('app/pdfs/' . $filename);
+
+        // // Retrieve users with matching course_id
+        // $users = User::where('course', $request->input('course_id'))->get();
+
+        // // $course = Course::where('id', $request->input('course_id'))->get();
+
+        // // Retrieve the course
+        // $course = Course::findOrFail($request->input('course_id'));
+
+        // // Send email to each user
+        // foreach ($users as $user) {
+
+        //     try {
+
+        //         Mail::to($user->email)->send(new HomeworkNotification($user, $course, $homework, $pdfFilePath));
+                
+        //     } catch (Exception $e) {
+
+        //       //Email sent failed.
+        //       return back()->with(['error' => $e->getMessage() ]);
+    
+        //     }
+
+        // }
+
         // Redirect back to the form with a success message
-        return redirect()->back()->with('message', 'Homework saved successfully!');
+        return redirect()->back()->with('success', 'Homework saved successfully!');
+
     }
 
     public function updateHomework(Request $request, Homework $homework)

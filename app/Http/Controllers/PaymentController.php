@@ -108,7 +108,7 @@ class PaymentController extends Controller
                 //     'details' => Course::Where($course->id, $grab->course_id)
                 // ]
             )->with(
-                'message',
+                'success',
                 'Payment Succssfull. Welcome to' . ' ' . $course->coursename
             );
 
@@ -128,7 +128,7 @@ class PaymentController extends Controller
             $status = "FAIL";
             $pageTitle = 'Payment Error';
             // dd($response);
-            return view(' payment_error', compact('response', 'pageTitle'));
+            return view('payment_error', compact('response', 'pageTitle'));
         }
         //Store the transaction as per your requirement
     }

@@ -27,7 +27,6 @@
         </div>
 
         {{-- table --}}
-
         <div class="overflow-x-auto relative mx-10">
             <table class="w-full text-sm text-left text-gray-700 dark:text-gray-400">
                 <tbody class="">
@@ -71,7 +70,7 @@
                                     @endif
                                 </td>
 
-                                <td class="py-4">
+                                <td class="py-4 text-red-500 font-bold">
                                     {{ $homework->due_date }}
                                 </td>
 
@@ -297,7 +296,7 @@
 
     // Attach click event handler to each edit button
     editButtons.on('click', function() {
-        
+
         // Get the homework data from the data attribute
         var homeworkData = JSON.parse($(this).attr('data-homework'));
         var homeworkId = homeworkData.id;

@@ -32,7 +32,7 @@
 
 
     {{-- tailwind css cdn  --}}
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite('resources/css/app.css')
 
     {{-- splide auto scroll extension --}}
     <script

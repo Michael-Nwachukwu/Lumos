@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Str;
+@endphp
+
 <x-dashboard>
 
     <div class="h-full ml-14 mt-20 mb-10 md:ml-64">
@@ -39,7 +43,15 @@
                                     class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     Part {{ $loop->index + 1 }} 
                                 </th>
-                                <td class="py-4 px-6">
+                                <td class="py-4 px-6
+                                    @if(Str::contains(strtolower($syllable->topic), 'project'))
+                                        text-green-600 font-bold
+                                    @elseif(Str::contains(strtolower($syllable->topic), 'quiz'))
+                                        text-blue-600 font-bold
+                                    @elseif(Str::contains(strtolower($syllable->topic), 'exam'))
+                                        text-red-600 font-bold
+                                    @endif
+                                ">
                                     {{ $syllable->topic }}
                                 </td>
                             </tr>
