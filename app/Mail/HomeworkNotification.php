@@ -57,6 +57,7 @@ class HomeworkNotification extends Mailable
     {
         $email = $this->subject('Homework Notification')
             ->view('emails.homework.notification')
+            ->subject('New Homework Notification')
             ->with([
                 'user' => $this->user,
                 'course' => $this->course,

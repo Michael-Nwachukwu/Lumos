@@ -128,6 +128,12 @@ Route::controller(UserController::class)->group(function () {
     // update passwowrd
     Route::post('/change-password', 'changePassword')->name('update.password');
 
+    // send password rest link 
+    Route::post('/password/email', 'sendResetLinkEmail')->name('password.email');
+
+    // reset password
+    Route::post('/password/reset', 'reset')->name('password.update');
+
     // Route::post('/change-password', function () {
     //     dd(Auth::user());
     // })->name('update.password');

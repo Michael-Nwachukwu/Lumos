@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordResetEmail;
+use Illuminate\Support\Str;
+
 
 class UserController extends Controller
 {
@@ -169,5 +173,78 @@ class UserController extends Controller
         return redirect('/')->with('success', 'You have been logged out');
     }
 
-    // 
+    // send password reset link
+    public function sendResetLinkEmail(Request $request)
+    {
+        // form validate
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $email = $request->input('email');
+
+        $user = User::where('email', $email)->first();
+
+        // verify its the users email
+        if (!$user) {
+            return back()->with('error', 'Email not found');
+        }
+
+        // Generate a unique token
+        $token = Str::random(64);
+
+        // Store the token and its expiration time in the database
+        DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => $token,
+            'created_at' => now()
+        ]);
+
+        // Send the password reset email
+        Mail::to($email)->send(new PasswordResetEmail($token));
+
+        return redirect()->back()->with('message', 'Password reset email sent!');
+    }
+
+
+
+    // reset password
+    public function reset(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'token' => 'required',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $email = $request->input('email');
+        $token = $request->input('token');
+        $password = $request->input('password');
+
+        $user = User::where('email', $email)->first();
+
+        if (!$user) {
+            return redirect()->back()->withErrors(['email' => 'Email not found']);
+        }
+
+        $passwordReset = DB::table('password_resets')->where('email', $email)->first();
+
+        if (!$passwordReset) {
+            return redirect()->back()->withErrors(['token' => 'Invalid token']);
+        }
+
+        if ($token !== $passwordReset->token) {
+            return redirect()->back()->withErrors(['token' => 'Invalid token']);
+        }
+
+        // Update the user's password
+        $user->password = Hash::make($password);
+        $user->save();
+
+        // Delete the used token
+        DB::table('password_resets')->where('email', $email)->delete();
+
+        return redirect()->route('login')->with('message', 'Password reset successful! You can now log in with your new password.');
+    }
+
 }

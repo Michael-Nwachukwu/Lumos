@@ -57,7 +57,7 @@
         <div class="container flex justify-between items-center mx-auto">
 
             <a href="/" class="flex items-center" data-summari-detected="true">
-                <img src="{{ asset('img/lumos_pink_x-removebg-preview.png') }}" class="h-4 xs:h-6 sm:h-8" alt="LUMOS">
+                <img src="{{ asset('img/lumos_pink_x-removebg-preview.png') }}" class="h-4 xs:h-6 sm:h-6" alt="LUMOS">
             </a>
 
             <div class="flex md:order-2">
