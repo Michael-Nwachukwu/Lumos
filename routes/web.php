@@ -134,12 +134,11 @@ Route::controller(UserController::class)->group(function () {
     // reset password
     Route::post('/password/reset', 'reset')->name('password.update');
 
-    // Route::post('/change-password', function () {
-    //     dd(Auth::user());
-    // })->name('update.password');
+    // show form
+    Route::get('/password/reset', 'showResetForm')->name('password.reset');
 
-    // create a teacher by admin
     Route::post('/create/teacher', 'storeTeacher');
+
 
 });
 

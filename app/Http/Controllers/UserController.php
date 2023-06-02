@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Mail\PasswordResetEmail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\PasswordResetEmail;
-use Illuminate\Support\Str;
 
 
 class UserController extends Controller
@@ -115,7 +116,7 @@ class UserController extends Controller
 
             if ($role == '0') {
                 // redirect
-                return redirect('/student-dashboard')->with('success', 'Student logged in Successfully');
+                return redirect('/')->with('success', 'Student logged in Successfully');
             }
 
             if ($role == '1') {
@@ -173,6 +174,11 @@ class UserController extends Controller
         return redirect('/')->with('success', 'You have been logged out');
     }
 
+    public function showResetForm()
+    {
+        return view('reset');
+    }
+
     // send password reset link
     public function sendResetLinkEmail(Request $request)
     {
@@ -200,28 +206,43 @@ class UserController extends Controller
             'created_at' => now()
         ]);
 
-        // Send the password reset email
-        Mail::to($email)->send(new PasswordResetEmail($token));
+        try {
+    
+            // Send the password reset email
+            Mail::to($email)->send(new PasswordResetEmail($token));
+            
+        } catch (Exception $e) {
 
-        return redirect()->back()->with('message', 'Password reset email sent!');
+          //Email sent failed.
+          return back()->with(['error' => $e->getMessage() ]);
+
+        }
+
+       
+
+        return redirect()->back()->with('success', 'Password reset email sent!');
     }
-
 
 
     // reset password
     public function reset(Request $request)
     {
+
+        // dd($request);
+
         $request->validate([
             'email' => 'required|email',
             'token' => 'required',
             'password' => 'required|min:6|confirmed',
         ]);
 
+        
         $email = $request->input('email');
         $token = $request->input('token');
         $password = $request->input('password');
-
+        
         $user = User::where('email', $email)->first();
+        // dd($user);
 
         if (!$user) {
             return redirect()->back()->withErrors(['email' => 'Email not found']);
@@ -230,11 +251,11 @@ class UserController extends Controller
         $passwordReset = DB::table('password_resets')->where('email', $email)->first();
 
         if (!$passwordReset) {
-            return redirect()->back()->withErrors(['token' => 'Invalid token']);
+            return back()->with(['error' => 'Invalid tokent']);
         }
 
         if ($token !== $passwordReset->token) {
-            return redirect()->back()->withErrors(['token' => 'Invalid token']);
+            return back()->with(['error' => 'Invalid tokenu']);
         }
 
         // Update the user's password
@@ -244,7 +265,7 @@ class UserController extends Controller
         // Delete the used token
         DB::table('password_resets')->where('email', $email)->delete();
 
-        return redirect()->route('login')->with('message', 'Password reset successful! You can now log in with your new password.');
+        return redirect()->route('login')->with('success', 'Password reset successful! You can now log in with your new password.');
     }
 
 }

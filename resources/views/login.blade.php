@@ -112,7 +112,7 @@
                                     <label for="password"
                                         class="block mb-2 text-sm font-medium text-primary-200 dark:text-gray-300">Your
                                         password</label>
-                                    <input type="password" name="password" name="password" value="{{ old('password') }}"
+                                    <input type="password" name="password" value="{{ old('password') }}"
                                         id="password" placeholder="••••••••"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         required>
@@ -130,7 +130,7 @@
                                 </div>
 
                                 <button
-                                    class="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg border-black bg-primary-300 text-white w-full hover:bg-black font-bold">
+                                    class="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg border-black bg-primary-300 text-white w-full hover:bg-black font-bold" type="submit">
                                     Sign In
                                 </button>
 
