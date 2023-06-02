@@ -4,7 +4,7 @@
 
 <div class="mx-auto w-full p-3 bg-neutral-800 h-52">
     <div class="flex justify-between">
-        <h1 class="text-xl sm:text-4xl font-bold text-left p-3 uppercase text-amber-500 my-auto">
+        <h1 class="text-xl sm:text-4xl font-bold text-left p-3 uppercase text-[#fdc5b9] my-auto">
             {{ $course->coursename }}
             <span>program</span> <br>
             <span class="text-xs">tutor: <span>

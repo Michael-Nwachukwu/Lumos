@@ -23,9 +23,9 @@ class DashboardController extends Controller
     public function studentindex()
     {
 
-        if (auth()->guest()) {
-            return redirect('login');
-        }
+        // if (auth()->guest()) {
+        //     return redirect('login');
+        // }
 
         return view('dashboards.student_dash.dashboard', [
 
@@ -69,6 +69,8 @@ class DashboardController extends Controller
             'events' => Event::all(),
 
             'studentinboxes' => Studentinbox::all(),
+
+            'homeworks' => Homework::Where('course_id', $course->id)->get(),
 
         ]);
     }

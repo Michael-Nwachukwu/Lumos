@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DashboardController;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,37 +71,37 @@ Route::middleware(['auth'])->group(function () {
 Route::controller(CourseController::class)->group(function () {
 
     // show index page
-    Route::get('/', [CourseController::class, 'index']);
+    Route::get('/', 'index');
 
     // single course
-    Route::get('/courses/{course}', [CourseController::class, 'show']);
+    Route::get('/courses/{course}', 'show');
 
     // show all courses
-    Route::get('/courses', [CourseController::class, 'all']);
+    Route::get('/courses', 'all');
 
     // store create course form data
-    Route::post('/create', [CourseController::class, 'store']);
+    Route::post('/create', 'store');
 
     // Store create syllabus by teachers 
-    Route::post('/createsyllabus', [CourseController::class, 'storeSyllabus']);
+    Route::post('/createsyllabus', 'storeSyllabus');
 
     // Eit/update syllabus
-    Route::put('/syllabus/{syllable}', [CourseController::class, 'updateSyllabus'])->name('syllabus.update');
+    Route::put('/syllabus/{syllable}', 'updateSyllabus')->name('syllabus.update');
 
     // delete syllabus
-    Route::delete('/syllabus/{syllable}', [CourseController::class, 'destroySyllabus'])->name('syllabus.destroy');
+    Route::delete('/syllabus/{syllable}', 'destroySyllabus')->name('syllabus.destroy');
 
     // Store create Homeworks by teachers
-    Route::post('/createHomework', [CourseController::class, 'storeHomework']);
+    Route::post('/createHomework', 'storeHomework');
 
     // download homework pdf instructions
-    Route::get('/download/{id}', [CourseController::class, 'download'])->name('homework.download');
+    Route::get('/download/{id}', 'download')->name('homework.download');
 
     // Eit/update homeworks
-    Route::put('/homeworks/{homework}', [CourseController::class, 'updateHomework'])->name('homework.update')->middleware('auth');
+    Route::put('/homeworks/{homework}', 'updateHomework')->name('homework.update')->middleware('auth');
 
     // delete tasks/homeworks
-    Route::delete('/homeworks/{homework}', [CourseController::class, 'destroyHomework'])->middleware('auth')->name('homeworks.destroy');
+    Route::delete('/homeworks/{homework}', 'destroyHomework')->middleware('auth')->name('homeworks.destroy');
 
 
 });
@@ -110,22 +111,29 @@ Route::controller(CourseController::class)->group(function () {
 Route::controller(UserController::class)->group(function () {
     
     // show register page
-    Route::get('/register', [UserController::class, 'create']);
+    Route::get('/register', 'create');
 
     // store users details
-    Route::post('/users', [UserController::class, 'store']);
+    Route::post('/users', 'store');
 
     // show login form 
-    Route::get('/login', [UserController::class, 'login'])->name('login');
+    Route::get('/login', 'login')->name('login');
 
     // log in user
-    Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+    Route::post('/users/authenticate', 'authenticate');
 
     // log user out
-    Route::post('/logout', [\App\Http\Controllers\UserController::class, 'logout'])->middleware('auth');
+    Route::post('/logout', 'logout')->middleware('auth');
+
+    // update passwowrd
+    Route::post('/change-password', 'changePassword')->name('update.password');
+
+    // Route::post('/change-password', function () {
+    //     dd(Auth::user());
+    // })->name('update.password');
 
     // create a teacher by admin
-    Route::post('/create/teacher', [UserController::class, 'storeTeacher']);
+    Route::post('/create/teacher', 'storeTeacher');
 
 });
 

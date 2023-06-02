@@ -28,7 +28,11 @@
     {{-- ggogle font raleway --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 
 
     {{-- tailwind css cdn  --}}
@@ -48,12 +52,12 @@
     {{-- include preloader --}}
     {{-- @include('partials._preloader') --}}
 
-    <nav class="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 w-full fixed z-30 top-0 left-0 dark:border-gray-600">
+    <nav class="backdrop-blur-md px-2 sm:px-4 py-1.5 w-full fixed z-30 top-0 left-0">
 
-        <div class="container flex flex-wrap justify-between items-center mx-auto">
+        <div class="container flex justify-between items-center mx-auto">
 
             <a href="/" class="flex items-center" data-summari-detected="true">
-                <img src="{{ asset('img/lumosBOW-removebg-preview.png') }}" class="mr-3 h-6 sm:h-9" alt="LUMOS">
+                <img src="{{ asset('img/lumos_pink_x-removebg-preview.png') }}" class="h-4 xs:h-6 sm:h-8" alt="LUMOS">
             </a>
 
             <div class="flex md:order-2">
@@ -65,14 +69,14 @@
                 </button> --}}
 
                 @auth
-                    <div class="flex flex-row-reverse items-center gap-3">
-                        <p class="font-bold uppercase">
+                    <div class="flex flex-row-reverse items-center gap-2 sm:gap-3">
+                        <p class="font-bold uppercase text-xs sm:text-lg text-[#f97760]">
                             Welcome {{ auth()->user()->firstname }}
                         </p>
 
                         <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
                             data-dropdown-placement="bottom-start" 
-                            class="w-10 h-10 rounded-full cursor-pointer @if( auth()->user()->role == 0 && auth()->user()->course) ring-2 ring-green-500 @else ring-2 ring-red-500 @endif"
+                            class="w-5 h-5 xs:w-7 xs:h-7 sm:w-10 sm:h-10 rounded-full cursor-pointer @if( auth()->user()->role == 0 && auth()->user()->course) ring-2 ring-green-500 @else ring-2 ring-red-500 @endif"
                             src=" {{ auth()->user()->profilepicture ? asset('storage/' . auth()->user()->profilepicture) : asset('img/undraw_pic_profile_re_i9i4.svg') }}" alt="User dropdown">
                            
                         <!-- Dropdown menu -->
@@ -149,7 +153,7 @@
 
                     {{-- links to show if user isnt --}}
                 @else
-                    <button onclick="window.location.href='/register'" class="bg-black text-white px-10 py-3.5 text-amber-400  hover:bg-amber-500 hover:text-black">
+                    <button onclick="window.location.href='/register'" class="bg-[#F97760] text-black px-10 py-3.5 hover:bg-black hover:text-white hidden lg:block">
                         <span class="button-content font-bold">Get Started</span>
                     </button>
                 @endauth
@@ -176,37 +180,37 @@
 
             {{-- style="border-radius: 1.625rem; background-color:#ede7e2" --}}
 
-            <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+            <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1 bg-[#fb9e8d] bg-opacity-90 md:bg-transparent" id="navbar-sticky">
 
                 <ul
-                    class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    class="flex flex-col mt-4 md:flex-row md:space-x-2 items-center lg:space-x-8 md:mt-0 pt-2 md:text-sm md:font-medium md:border-0 uppercase text-black md:text-[#F97760] text-opacity-80">
 
                     <li
-                        class="hover:bg-black hover:text-white py-4 px-6 text-amber-700 font-bold uppercase rounded-2xl">
+                        class="py-4 px-6 font-bold text-xs hover:text-[#b6050b] hover:-translate-y-1 hover:scale-110 ease-in-out delay-150 duration-500">
                         <a href="/" class="block md:p-0 dark:text-white" aria-current="page"
                             data-summari-detected="true">Home</a>
                     </li>
 
                     <li
-                        class="hover:bg-black text-amber-700 font-bold uppercase py-4 px-6 hover:text-white rounded-2xl">
+                        class="font-bold text-xs hover:text-[#b6050b] hover:-translate-y-1 hover:scale-110 ease-in-out delay-150 duration-500 py-4 px-6">
                         <a href="#"
                             class="block md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                             data-summari-detected="true">About</a>
                     </li>
 
                     <li
-                        class="hover:bg-black text-amber-700 font-bold uppercase py-4 px-6 hover:text-white rounded-2xl">
-                        <a href="#"
-                            class="block md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                            data-summari-detected="true">Services</a>
-                    </li>
-
-                    <li
-                        class="hover:bg-black text-amber-700 font-bold uppercase py-4 px-6 hover:text-white rounded-2xl">
+                        class="font-bold text-xs hover:text-[#b6050b] hover:-translate-y-1 hover:scale-110 ease-in-out delay-150 duration-500 py-4 px-6">
                         <a href="#"
                             class="block md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                             data-summari-detected="true">Contact</a>
                     </li>
+
+                    <li class="sm:hidden my-5">
+                        <button onclick="window.location.href='/register'" class="bg-black text-white px-10 py-3.5 hover:bg-[#F97760] hover:text-white">
+                            <span class="button-content font-bold">Get Started</span>
+                        </button>
+                    </li>
+
                 </ul>
             </div>
 

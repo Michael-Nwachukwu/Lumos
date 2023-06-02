@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -109,7 +111,7 @@ class UserController extends Controller
 
             if ($role == '0') {
                 // redirect
-                return redirect('/')->with('success', 'Student logged in Successfully');
+                return redirect('/student-dashboard')->with('success', 'Student logged in Successfully');
             }
 
             if ($role == '1') {
@@ -126,6 +128,32 @@ class UserController extends Controller
 
         // else if the attempt fails take user back to the login page with errors. this is because we want the error to only show in the email input cos we do not want the user to know if the user exists or not
         return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
+    }
+
+    public function changePassword(Request $request)
+    {
+        // dd(Auth::user());
+
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $user = Auth::user();
+        // dd($user);
+
+
+        // Check if the current password matches the user's password
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'The current password is incorrect.');
+        }
+
+        // Update the user's password
+        $user->password = Hash::make($request->password);
+        $user->password_changed_at = Carbon::now();
+        $user->save();
+
+        return redirect('/student-dashboard')->with('success', 'Password changed successfully.');
     }
 
     // logout user

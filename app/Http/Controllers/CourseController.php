@@ -159,8 +159,8 @@ class CourseController extends Controller
                   return back()->with(['error' => $e->getMessage() ]);
         
                 }
-    
             }
+
         }else {
 
             // Send email to each user
@@ -176,7 +176,6 @@ class CourseController extends Controller
                     return back()->with(['error' => $e->getMessage() ]);
         
                 }
-
             }
         }
 

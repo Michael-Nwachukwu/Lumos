@@ -35,7 +35,7 @@
             <!-- Container -->
             <div class="flex flex-row w-full">
 
-                <!-- Sidebar -->
+                <!-- Sidebar --> 
                 <div
                     class='hidden lg:flex flex-col justify-between bg-amber-300 lg:p-8 xl:p-12 lg:max-w-sm xl:max-w-lg'>
                     <div class="flex items-center justify-end py-7">

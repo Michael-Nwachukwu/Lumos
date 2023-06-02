@@ -18,7 +18,7 @@
 
             {{-- <!=========================================== User Profile ====================================================================> --}}
             
-            <div class="relative flex flex-col min-w-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
+            {{-- <div class="relative flex flex-col min-w-0 break-words bg-gray-50 dark:bg-gray-800 w-full shadow-lg rounded">
                 <div class="rounded-t mb-0 px-0 border-0">
                     <div class="px-4 py-2">
                         <div class="relative w-full max-w-full flex-grow flex-1">
@@ -26,8 +26,11 @@
                         </div>
                     </div>
                     <div class="block w-full">
-                        <div class="px-4 bg-gray-100 border border-solid border-gray-200 py-3 border-l-0 border-r-0 whitespace-nowrap flex justify-center">
-                            <img src="{{ asset('img/undraw_pic_profile_re_i9i4.svg') }}" class="w-20 h-20" alt="">
+                        <div class="px-4 bg-gray-100 border border-solid border-gray-200 py-3 border-l-0 border-r-0 whitespace-nowrap flex justify-center ">
+                            <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown"
+                            data-dropdown-placement="bottom-start" 
+                            class="w-20 h-20 rounded-full cursor-pointer"
+                            src=" {{ auth()->user()->profilepicture ? asset('storage/' . auth()->user()->profilepicture) : asset('img/undraw_pic_profile_re_i9i4.svg') }}" alt="User dropdown">
                         </div>
                         <ul class="my-1 space-y-1">
 
@@ -106,11 +109,22 @@
                                 <p>{{ auth()->user()->created_at }}</p>
 
                             </li>
+
+                            <li class="flex justify-center py-3">
+                                <button href="" class="bg-neutral-800 text-white rounded-xl h-9">
+                                    <span class="px-8">
+                                        Edit
+                                    </span>
+                                </button>
+                            </li>
+
+
                         </ul>
                         
                     </div>
                 </div>
-            </div>
+            </div> --}}
+            <x-user-profile-card />
 
             {{-- <!======================================---- ./User Profile =================================================================> --}}
 
@@ -128,6 +142,7 @@
 
             <div class="md:col-span-2 xl:col-span-2">
                 <div class="rounded bg-gray-200 dark:bg-gray-800 p-3">
+
                     <div class="flex justify-between py-1 text-black dark:text-white">
                         <h3 class="text-sm font-semibold">Tasks in TO DO</h3>
                         <svg class="h-4 fill-current text-gray-600 dark:text-gray-500 cursor-pointer"
@@ -136,48 +151,22 @@
                                 d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z" />
                         </svg>
                     </div>
+
                     <div class="text-sm text-black dark:text-gray-50 mt-2">
-                        <div
-                            class="bg-white dark:bg-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded mt-1 border-b border-gray-100 dark:border-gray-900 cursor-pointer">
-                            Delete all references from the wiki</div>
-                        <div
-                            class="bg-white dark:bg-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded mt-1 border-b border-gray-100 dark:border-gray-900 cursor-pointer">
-                            Remove analytics code</div>
-                        <div
-                            class="bg-white dark:bg-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded mt-1 border-b border-gray-100 dark:border-gray-900 cursor-pointer">
-                            Do a mobile first layout
-                            <div
-                                class="text-gray-500 dark:text-gray-200 mt-2 ml-2 flex justify-between items-start">
-                                <span class="text-xs flex items-center">
-                                    <svg class="h-4 fill-current mr-1" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 50 50">
-                                        <path
-                                            d="M11 4c-3.855 0-7 3.145-7 7v28c0 3.855 3.145 7 7 7h28c3.855 0 7-3.145 7-7V11c0-3.855-3.145-7-7-7zm0 2h28c2.773 0 5 2.227 5 5v28c0 2.773-2.227 5-5 5H11c-2.773 0-5-2.227-5-5V11c0-2.773 2.227-5 5-5zm25.234 9.832l-13.32 15.723-8.133-7.586-1.363 1.465 9.664 9.015 14.684-17.324z" />
-                                    </svg>
-                                    3/5
+
+                        @foreach ($homeworks as $homework)
+
+                            <div class="bg-white dark:bg-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded mt-1 border-b border-gray-100 dark:border-gray-900 cursor-pointer flex justify-between items-center">
+                                <span class="ml-3">
+                                    {{ $homework->title }}
                                 </span>
-                                <img src="https://i.imgur.com/OZaT7jl.png" class="rounded-full" />
-                            </div>
-                        </div>
-                        <div
-                            class="bg-white dark:bg-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded mt-1 border-b border-gray-100 dark:border-gray-900 cursor-pointer">
-                            Check the meta tags</div>
-                        <div
-                            class="bg-white dark:bg-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 p-2 rounded mt-1 border-b border-gray-100 dark:border-gray-900 cursor-pointer">
-                            Think more tasks for this example
-                            <div
-                                class="text-gray-500 dark:text-gray-200 mt-2 ml-2 flex justify-between items-start">
-                                <span class="text-xs flex items-center">
-                                    <svg class="h-4 fill-current mr-1" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 50 50">
-                                        <path
-                                            d="M11 4c-3.855 0-7 3.145-7 7v28c0 3.855 3.145 7 7 7h28c3.855 0 7-3.145 7-7V11c0-3.855-3.145-7-7-7zm0 2h28c2.773 0 5 2.227 5 5v28c0 2.773-2.227 5-5 5H11c-2.773 0-5-2.227-5-5V11c0-2.773 2.227-5 5-5zm25.234 9.832l-13.32 15.723-8.133-7.586-1.363 1.465 9.664 9.015 14.684-17.324z" />
-                                    </svg>
-                                    0/3
+                                <span class="mr-3 text-red-500">
+                                    {{ $homework->due_date }}
                                 </span>
                             </div>
-                        </div>
-                        <p class="mt-3 text-gray-600 dark:text-gray-400">Add a card...</p>
+                            
+                        @endforeach
+
                     </div>
                 </div>
             </div>
@@ -192,7 +181,7 @@
                                 d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z" />
                         </svg>
                     </div>
-{{-- 
+                    {{-- 
                     <div class="flex justify-center">
                         <div class="flex flex-col items-center space-y-2 py-10">
                             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-calendar3-event" viewBox="0 0 16 16">
@@ -406,6 +395,71 @@
 
         {{-- <!==========================================-- ./report Form ========================================================================--> --}}
 
+    </div>
+
+    <!-- Main modal -->
+    <div id="editProfile-modal" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center">
+
+        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 py-10">
+                <button type="button"
+                    class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                    data-modal-toggle="editProfile-modal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="py-6 px-6 lg:px-8">
+
+                    <div class="flex items-baseline justify-between">
+                        <img src="{{ asset('img/lumosBOW.jpg') }}" class="w-20" alt="">
+                        <h3 class="mb-4 text-base pt-2 font-medium text-gray-900 dark:text-white">Change password</h3>
+                    </div>
+
+                    <form class="w-full" action="{{ route('update.password') }}" method="post">
+
+                        @csrf
+
+                        <div class="mb-3">
+                            <label for="current_password"
+                                class="block  text-sm font-medium text-gray-900 dark:text-gray-300">Current Password</label>
+                            <input type="password" id="current_password" name="current_password" required
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="•••••••••">
+                            @error('current_password')
+                                <span>{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">New Password</label>
+                            <input type="password" id="password" name="password" required
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="•••••••••">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password_confirmation"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Confirm
+                                password</label>
+                            <input type="password" id="password_confirmation" name="password_confirmation" required
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="•••••••••">
+                        </div>
+                        
+                        <button type="submit"
+                            class="text-white bg-black hover:bg-amber-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     
 </x-dashboard>
