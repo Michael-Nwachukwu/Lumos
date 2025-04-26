@@ -1,64 +1,149 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Lumos - School Management System
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Lumos is a robust and user-friendly school management system designed to streamline administrative tasks and enhance learning experiences. Built with modern technologies, Lumos provides a comprehensive solution for managing assignments, classwork, attendance, course enrollment, and payment integration.
 
-## About Laravel
+## Table of Contents
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Payment Integration](#payment-integration)
+- [Contribution Guidelines](#contribution-guidelines)
+- [License](#license)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Lumos is packed with features to simplify school management:
 
-## Learning Laravel
+- **Assignments and Classwork Management:** Teachers can create, assign, and grade assignments and classwork.
+- **Attendance Tracking:** Easily track and manage student attendance.
+- **Course Enrollment:** Students can enroll in courses, and administrators can manage enrollments.
+- **Payment Integration:** Integrated with Flutterwave for secure and seamless fee payments.
+- **Role-Based Access Control:** Distinct roles for administrators, teachers, and students.
+- **Responsive Design:** Fully responsive interface built with TailwindCSS for seamless use on all devices.
+- **Interactive Animations:** Smooth user experience enhanced with AOS (Animate On Scroll) and Splide.js.
+- **Announcements and Notifications:** Broadcast announcements and send notifications to users.
+- **Gradebook and Reports:** Generate and view student grades and performance reports.
+- **Timetable Management:** Create and manage class schedules and timetables.
+- **Parent Portal:** Dedicated portal for parents to track their child's progress and activities.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Technologies Used
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Lumos is built using the following technologies:
 
-## Laravel Sponsors
+- **Blade:** Laravel's templating engine for dynamic pages.
+- **PHP:** Backend logic and data handling.
+- **TypeScript:** For robust and maintainable JavaScript code.
+- **JavaScript:** Interactive frontend components.
+- **SCSS/CSS:** Styling for a modern and clean user interface.
+- **HTML:** Structuring pages and content.
+- **TailwindCSS:** Utility-first CSS framework for styling.
+- **Splide.js:** For creating carousels and sliders.
+- **AOS (Animate On Scroll):** For smooth scroll animations.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Installation
 
-### Premium Partners
+Follow these steps to set up Lumos on your local machine:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+1.  **Clone the repository:**
 
-## Contributing
+    ```bash
+    git clone [https://github.com/Michael-Nwachukwu/Lumos.git](https://github.com/Michael-Nwachukwu/Lumos.git)
+    cd Lumos
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2.  **Install dependencies:**
 
-## Code of Conduct
+    ```bash
+    composer install
+    npm install
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3.  **Set up your `.env` file:**
 
-## Security Vulnerabilities
+    -   Copy `.env.example` to `.env`:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+        ```bash
+        cp .env.example .env
+        ```
 
-## License
+    -   Configure your database and other environment settings in the `.env` file.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4.  **Generate application key:**
+
+    ```bash
+    php artisan key:generate
+    ```
+
+5.  **Run migrations and seed the database:**
+
+    ```bash
+    php artisan migrate --seed
+    ```
+
+6.  **Build frontend assets:**
+
+    ```bash
+    npm run dev
+    ```
+
+7.  **Start the development server:**
+
+    ```bash
+    php artisan serve
+    ```
+
+## Usage
+
+1.  Visit the application in your browser at `http://127.0.0.1:8000`.
+2.  Log in as an administrator to access full functionality.
+3.  Assign roles to teachers and students for specific tasks.
+4.  Explore features such as assignments, attendance, and payment management.
+
+**Default Credentials (if seeded):**
+
+**Admin:**
+
+-   **Email:** `admin@example.com`
+-   **Password:** `password`
+
+## Payment Integration
+
+Lumos integrates with Flutterwave for secure and efficient payment processing. To enable payment functionality:
+
+1.  Obtain your Flutterwave API keys from the [Flutterwave Dashboard](https://dashboard.flutterwave.com/).
+2.  Add the keys to your `.env` file:
+
+    ```ini
+    FLUTTERWAVE_PUBLIC_KEY=your_public_key
+    FLUTTERWAVE_SECRET_KEY=your_secret_key
+    FLUTTERWAVE_ENCRYPTION_KEY=your_encryption_key
+    ```
+
+3.  Test the payment flow and ensure all configurations are correct.
+
+## Contribution Guidelines
+
+We welcome contributions to improve Lumos! To get started:
+
+1.  Fork the repository.
+2.  Create a new branch for your feature or bugfix:
+
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
+
+3.  Commit your changes:
+
+    ```bash
+    git commit -m "Add: Description of your changes"
+    ```
+
+4.  Push your branch:
+
+    ```bash
+    git push origin feature/your-feature-name
+    ```
+
+5.  Open a pull request on the main repository.
